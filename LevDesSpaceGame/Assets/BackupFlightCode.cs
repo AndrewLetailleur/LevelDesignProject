@@ -16,6 +16,7 @@ public class BackupFlightCode : MonoBehaviour {
     public float yaw = 1f;
     public float roll = 1f;
     public float accel = 1f;
+    private float Timer, Speed;
     //
 
 
@@ -30,6 +31,8 @@ public class BackupFlightCode : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        Timer = Time.deltaTime * 10;
+
         ctrlKeyX = Input.GetAxis("Vertical"); 
         ctrlKeyY = Input.GetAxis("Horizontal");
         //z
@@ -42,13 +45,14 @@ public class BackupFlightCode : MonoBehaviour {
         if (Input.GetKey(KeyCode.V)) { veloKey = -1f; } 
         else if (Input.GetKey(KeyCode.F)) { veloKey = 1f; }
         else { veloKey = 0f; }
-
+        
         Move();
         
     }
 
     void Move() {
-        float Speed = veloKey * accel * Time.deltaTime;
+        
+        Speed = (Timer * accel) * veloKey;
         //transform.Translate(0, 0, Speed);
         body.velocity = transform.forward * Speed;
         veloSpeed = Vector3.Distance(Vector3.zero, body.velocity);
@@ -57,13 +61,13 @@ public class BackupFlightCode : MonoBehaviour {
 
     void Turn() {
         //Pitch();
-        pitchSpeed = ctrlKeyX * pitch * Time.deltaTime;
+        pitchSpeed = ctrlKeyX * (pitch * Timer);
         transform.Rotate(-pitchSpeed, 0, 0);
         //Yaw();
-        yawSpeed = ctrlKeyZ * yaw * Time.deltaTime;
+        yawSpeed = ctrlKeyZ * (yaw * Timer);
         transform.Rotate(0, -yawSpeed, 0);
         //Roll();
-        rollSpeed = ctrlKeyY * roll * Time.deltaTime;
+        rollSpeed = ctrlKeyY * (roll * Timer);
         transform.Rotate(0, 0, -rollSpeed);
 
 
