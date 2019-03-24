@@ -6,14 +6,14 @@ public class ObjectWraparound : MonoBehaviour
 {
     private GameObject player;//player REF
 
+    public bool FollowFlag = false;
     public bool RotateFlag = false;     //determines if object should rotate
     public bool RandomTrig = false;
 
-
-
     //reference values
-    public float MaxDist;               //final version should be dependant on camera aspect bounds
-    
+    public float MaxDist = 256f;        //final version should be dependant on camera aspect bounds
+        //default is 256 for map level layout reasons
+
     //wraparound variables
     public float curX_Dist, curZ_Dist;  //distance by an X/Z axis
     private float selfX, selfZ;         //self = this.object, 
@@ -90,13 +90,22 @@ public class ObjectWraparound : MonoBehaviour
                                           playZ + (MaxDist));
             this.transform.position = newPosZ;
         }
+
+        //sticks to player position, x/z axis wise
+        if (FollowFlag)
+        {
+            Vector3 newPosF = new Vector3(playX,
+                                          this.transform.position.y,
+                                          playZ);
+            this.transform.position = newPosF;
+        }
+
     }
 
     // Update is called once per frame
-    void Update(){
-        //get's the current distance of this object in an X/Z Axis, dependant on player location
-        GetDistance();
-        //sets object to be far before/behind the player, if past max distance.
-        SetDistance();
+    void Update() {
+         GetDistance();//get's the current distance of this object in an X/Z Axis, dependant on player location
+         SetDistance();//sets object to be far before/behind the player, if past max distance.
+        
     }
 }

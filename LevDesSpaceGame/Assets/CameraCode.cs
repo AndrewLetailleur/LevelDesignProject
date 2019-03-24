@@ -6,10 +6,10 @@ using UnityEngine.Rendering;
 
 
 public class CameraCode : MonoBehaviour {
-   // public PostProcessingProfile Camera_Profile;
+    // public PostProcessingProfile Camera_Profile;
 
-   
 
+    public bool mouseMove = false;
     //like the plane script, but without the rolling
     public float speed_Hori = 2f;
     public float speed_Vert = 2f;
@@ -48,12 +48,12 @@ public class CameraCode : MonoBehaviour {
 
         CameraGrainEffect();
 
-
-
-        yaw += speed_Hori * Input.GetAxis("Mouse X");
-        pitch -= speed_Vert * Input.GetAxis("Mouse Y");
-
-        transform.eulerAngles = new Vector3(pitch, yaw, 0f);//remember, no rolling.
+        if (mouseMove)
+        {
+            yaw += speed_Hori * Input.GetAxis("Mouse X");
+            pitch -= speed_Vert * Input.GetAxis("Mouse Y");
+            transform.eulerAngles = new Vector3(pitch, yaw, 0f);//remember, no rolling.
+        }
     }
 
 //    private float newSize = Random.Range(0.3f, 1.0f);

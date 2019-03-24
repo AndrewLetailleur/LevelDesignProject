@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class BackupFlightCode : MonoBehaviour {
 
+    public PlayerConditionCode playerCON;
+
     //RIGIDBODY
-    private Rigidbody body;
+    public Rigidbody body;
 
     //pitch, yaw, roll
     public float pitchSpeed, yawSpeed, rollSpeed, veloSpeed; //testing valves
-    private float ctrlKeyX, ctrlKeyY, ctrlKeyZ, veloKey; //key input
+    private float ctrlKeyX, ctrlKeyY, ctrlKeyZ;
+    public float veloKey; //key input
 
     //jnc multiplier, hack wise
     public float pitch = 1f;
@@ -23,7 +26,8 @@ public class BackupFlightCode : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        body = GetComponent<Rigidbody>();
+        playerCON = GameObject.FindGameObjectWithTag("Health").GetComponent<PlayerConditionCode>();
+        body = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
     }
 
 
@@ -42,16 +46,23 @@ public class BackupFlightCode : MonoBehaviour {
         
         Turn();
 
-        if (Input.GetKey(KeyCode.V)) { veloKey = -1f; } 
-        else if (Input.GetKey(KeyCode.F)) { veloKey = 1f; }
-        else { veloKey = 0f; }
+
         
         Move();
         
     }
 
     void Move() {
-        
+
+        if (Input.GetKey(KeyCode.V)) { veloKey = -1f;
+        }
+        else if (
+            Input.GetKey(KeyCode.F)) { veloKey = 1f;
+        }
+        else {
+            veloKey = 0f;
+        }
+
         Speed = (Timer * accel) * veloKey;
         //transform.Translate(0, 0, Speed);
         body.velocity = transform.forward * Speed;
@@ -71,8 +82,12 @@ public class BackupFlightCode : MonoBehaviour {
         transform.Rotate(0, 0, -rollSpeed);
 
 
-    } 
+    }
+    
 
-	
+    private void OnTriggerEnter(Collider other)
+    {
+        playerCON.HP_Change(1);//change according to damage
+    }
 
 }
