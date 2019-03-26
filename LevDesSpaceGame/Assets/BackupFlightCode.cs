@@ -45,11 +45,10 @@ public class BackupFlightCode : MonoBehaviour {
         else { ctrlKeyZ = 0f; }
         
         Turn();
-
-
-        
         Move();
-        
+
+        if (veloKey == 0 && pitchSpeed == 0 && rollSpeed == 0 && yawSpeed == 0)
+        { Momentum(); }
     }
 
     void Move() {
@@ -83,11 +82,36 @@ public class BackupFlightCode : MonoBehaviour {
 
 
     }
-    
 
-    private void OnTriggerEnter(Collider other)
-    {
-        playerCON.HP_Change(1);//change according to damage
+    void Momentum() {
+        //zeroes momentum, to ensure no bugs hassle wise?
+        body.velocity = Vector3.zero;
+        body.angularVelocity = Vector3.zero;
     }
+
+
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Hazard") {
+            playerCON.HP_Change(1);
+            //Vector3 moveDirection = other.transform.position - this.gameObject.transform.position;
+            //other.GetComponent<Rigidbody>().AddForce(moveDirection.normalized * 500f);
+
+        }//change according to damage
+    }
+
+    /*void OnCollisionEnter(Collision collision)
+    {
+        //Check for a match with the specific tag on any GameObject that collides with your GameObject
+        if (collision.gameObject.tag == "Hazard")
+        {
+            //If the GameObject has the same tag as specified, output this message in the console
+            Debug.Log("Do something else here");
+            playerCON.HP_Change(1);//change according to damage
+
+        }
+    }*/
+
 
 }

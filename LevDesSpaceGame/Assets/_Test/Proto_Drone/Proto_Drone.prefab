@@ -82,6 +82,7 @@ GameObject:
   - component: {fileID: 5838453683936685032}
   - component: {fileID: 5838453683936685047}
   - component: {fileID: 5838453683936685035}
+  - component: {fileID: 1868623985}
   m_Layer: 0
   m_Name: Proto_Drone
   m_TagString: Player
@@ -164,6 +165,19 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 2, y: 2, z: 2}
+  m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!65 &1868623985
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5838453683936685033}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.5, y: 1.5, z: 1.5}
   m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1 &5838453684423884433
 GameObject:
@@ -427,6 +441,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 6510263094580559373, guid: 711c855926a67a94b9886b404bb1c9a7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Health
+      objectReference: {fileID: 0}
     - target: {fileID: 6510263094580559361, guid: 711c855926a67a94b9886b404bb1c9a7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -531,6 +550,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6510263095759618670, guid: 711c855926a67a94b9886b404bb1c9a7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 711c855926a67a94b9886b404bb1c9a7, type: 3}
