@@ -15,12 +15,12 @@ public class ObjectWraparound : MonoBehaviour
         //default is 256 for map level layout reasons
 
     //wraparound variables
-    public float curX_Dist, curZ_Dist;  //distance by an X/Z axis
-    private float selfX, selfZ;         //self = this.object, 
-    private float playX, playZ;         //play = player object
+    public float curX_Dist, curY_Dist;  //distance by an X/Z axis
+    private float selfX, selfY;         //self = this.object, 
+    private float playX, playY;         //play = player object
 
     //rotate velocity variables
-    public float Velo_X, Velo_Z;        //determines velocity
+    public float Velo_X, Velo_Y;        //determines velocity
     public float Min_RNG, Max_RNG;      //random values for velocity calculating
 
 
@@ -36,13 +36,13 @@ public class ObjectWraparound : MonoBehaviour
             if (RandomTrig)
             {
                 Velo_X = Random.Range(Min_RNG, Max_RNG);
-                Velo_Z = Random.Range(Min_RNG, Max_RNG);
+                Velo_Y = Random.Range(Min_RNG, Max_RNG);
             }
             Rigidbody rb = GetComponent<Rigidbody>();
 
             if (this.gameObject.GetComponent<Rigidbody>() != null)
             {
-                rb.velocity = new Vector3(Velo_X, 0, Velo_Z);
+                rb.velocity = new Vector3(Velo_X, Velo_Y, 0);
             }
             else
             {
@@ -58,9 +58,9 @@ public class ObjectWraparound : MonoBehaviour
         playX = player.transform.position.x;
         curX_Dist = selfX -= playX;
         //z
-        selfZ = this.transform.position.z;
-        playZ = player.transform.position.z;
-        curZ_Dist = selfZ -= playZ;
+        selfY = this.transform.position.y;
+        playY = player.transform.position.y;
+        curY_Dist = selfY -= playY;
     }
     public void SetDistance() {
         //possitive transition
@@ -70,10 +70,10 @@ public class ObjectWraparound : MonoBehaviour
                                           this.transform.position.z);
             this.transform.position = newPosX;
         }
-        else if (curZ_Dist >= MaxDist) {
+        else if (curY_Dist >= MaxDist) {
             Vector3 newPosZ = new Vector3(this.transform.position.x,
-                                          this.transform.position.y,
-                                          playZ - (MaxDist));
+                                          playY - (MaxDist),
+                                          this.transform.position.z);
             this.transform.position = newPosZ;
         }
 
@@ -84,19 +84,17 @@ public class ObjectWraparound : MonoBehaviour
                                           this.transform.position.z);
             this.transform.position = newPosX;
         }
-        else if (curZ_Dist <= -MaxDist) {
+        else if (curY_Dist <= -MaxDist) {
             Vector3 newPosZ = new Vector3(this.transform.position.x,
-                                          this.transform.position.y,
-                                          playZ + (MaxDist));
+                                          playY + (MaxDist),
+                                          this.transform.position.z);
             this.transform.position = newPosZ;
         }
 
         //sticks to player position, x/z axis wise
         if (FollowFlag)
         {
-            Vector3 newPosF = new Vector3(playX,
-                                          this.transform.position.y,
-                                          playZ);
+            Vector3 newPosF = new Vector3(playX, playY, this.transform.position.z);
             this.transform.position = newPosF;
         }
 
