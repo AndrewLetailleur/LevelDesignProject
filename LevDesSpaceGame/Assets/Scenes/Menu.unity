@@ -4357,7 +4357,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Space Level Game
+  m_Text: 'Derelict Investigator
+
+    a Space Level Game'
 --- !u!222 &1656555637
 CanvasRenderer:
   m_ObjectHideFlags: 0
